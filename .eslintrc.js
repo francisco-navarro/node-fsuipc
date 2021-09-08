@@ -12,6 +12,7 @@ module.exports = {
     },
     "globals": {
         "d3": false,
-        "D3js": false
+        "D3js": false,
+        "fetch": false
     }
 };

@@ -2,27 +2,36 @@
 function main() {
   console.log('main.js');
  
-
-  rainbows();
-}
-
-function rainbows() {
-  let turn = -90;
-  let direction = 2;
-
-    d3.select("#airspeed #needle")
+    
+  d3.select("#airspeed #needle")
     .attr('transform', `translate(180,178)`)
 
-  setInterval(() => {
-    d3.select("#airspeed #needle")
-      .transition()
-      // .duration(100)
-      .attr('transform', `translate(180,178)rotate(${turn})`);
+  setTimeout(rainbows, 100);
+}
 
-    if (turn > 180 || turn < -90) {
-      direction *= -1;
-    }
-    turn += direction;
+async function getData() {
+  try {
+    const response = await fetch('http://localhost:3000/api');
+    const data = await response.json();
+    return data || {};
+  } catch {
+    return {};
+  }
+}
 
-  }, 50);
+async function rainbows() {
+  const data = await getData();
+  const turn = data.airspeed;
+  const rotate = d3.interpolate(
+    "rotate(-130)",
+    "rotate(90)"
+  )(0.5);
+
+  d3.select("#airspeed #needle")
+    .transition()
+    // .duration(100)
+    .attr('transform', `translate(180,178)${turn}`);
+
+    //setTimeout(rainbows, 100);
+
 }
