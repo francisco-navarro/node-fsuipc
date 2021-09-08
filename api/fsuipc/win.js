@@ -53,7 +53,7 @@ function update() {
                 verticalSpeed: result.verticalSpeed*60*3.28084/256,
                 turnRate: result.turnRate,
                 turnCoordinatorBall: result.turnCoordinatorBall,
-                rpm: result.rpm
+                rpm:  Math.round(result.rpm)
             };
 
             fs.appendFile('sim-output.log', JSON.stringify(data) + '\n', function (err) {
