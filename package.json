@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-fsuipc": "npm i fsuipc"
+  },
+  "engines": {
+    "node": ">= 12.18.2"
   },
   "repository": {
     "type": "git",
@@ -17,6 +21,9 @@
   },
   "homepage": "https://github.com/francisco-navarro/node-fsuipc#readme",
   "dependencies": {
-    "fsuipc": "^0.4.1"
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "7.23.0"
   }
 }
