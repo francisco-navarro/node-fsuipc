@@ -1,6 +1,7 @@
 let connection;
 let channel;
 let fsuipc;
+let data = {};
 
 function connect() {
     fsuipc = require('fsuipc');

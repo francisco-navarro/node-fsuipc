@@ -1,5 +1,5 @@
 const mockData = {
-  airspeed: 90,
+  airspeed: 40,
   altitude: 12,
   pitch: 12,
   bank: 32,
@@ -14,7 +14,7 @@ function connect() {
 }
 
 function update() {
-  mockData.airspeed = mockData.airspeed > 200 ? 0 : mockData.airspeed+=2;
+  mockData.airspeed = mockData.airspeed > 220 ? 40 : mockData.airspeed+=2;
 
   return Promise.resolve(mockData);
 }

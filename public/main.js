@@ -21,17 +21,18 @@ async function getData() {
 
 async function rainbows() {
   const data = await getData();
-  const turn = data.airspeed;
+  const max = 240;
+  const turn = data.airspeed / max;
   const rotate = d3.interpolate(
-    "rotate(-130)",
-    "rotate(90)"
-  )(0.5);
+    "rotate(-130)", //min rotation
+    "rotate(205)" // max rotation
+  )(turn);
 
   d3.select("#airspeed #needle")
     .transition()
     // .duration(100)
-    .attr('transform', `translate(180,178)${turn}`);
+    .attr('transform', `translate(180,178)${rotate}`);
 
-    //setTimeout(rainbows, 100);
+    setTimeout(rainbows, 100);
 
 }
