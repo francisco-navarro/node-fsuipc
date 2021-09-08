@@ -1,7 +1,10 @@
+const fs = require('fs');
+
 let connection;
 let channel;
 let fsuipc;
-let data = {};
+
+const ENABLE_LOG = false;
 
 function connect() {
     fsuipc = require('fsuipc');
@@ -30,22 +33,18 @@ function update() {
         })
         .then((result) => {
 
-            console.log(`airspeed indicated ${result.airspeed / 128} knots`);
-            console.log(`Altitude ${result.altitude*3.28084/(65536*65536)} feets`);
+            if (ENABLE_LOG) {
+                console.log(`airspeed indicated ${result.airspeed / 128} knots`);
+                console.log(`Altitude ${result.altitude*3.28084/(65536*65536)} feets`);
+                console.log(`pitch ${result.pitch *360/(65536*65536)}º`);
+                console.log(`bank ${result.bank *360/(65536*65536)}º`);
+                console.log(`heading ${result.heading*360/(65536*65536)} º`);
+                console.log(`verticalSpeed ${result.verticalSpeed*60*3.28084/256} feet/min`);
+                console.log(`turn ${result.turnRate} ${result.turnCoordinatorBall} `);
+                console.log(`rpm ${result.rpm} `);
+            }
 
-            console.log(`pitch ${result.pitch *360/(65536*65536)}º`);
-            console.log(`bank ${result.bank *360/(65536*65536)}º`);
-
-            console.log(`heading ${result.heading*360/(65536*65536)} º`);
-
-            console.log(`verticalSpeed ${result.verticalSpeed*60*3.28084/256} feet/min`);
-
-
-            console.log(`turn ${result.turnRate} ${result.turnCoordinatorBall} `);
-
-            console.log(`rpm ${result.rpm} `);
-
-            return {
+            const data = {
                 airspeed: result.airspeed / 128,
                 altitude: result.altitude*3.28084/(65536*65536),
                 pitch: result.pitch *360/(65536*65536),
@@ -56,6 +55,10 @@ function update() {
                 turnCoordinatorBall: result.turnCoordinatorBall,
                 rpm: result.rpm
             };
+
+            fs.appendFile('sim-output.log', JSON.stringify(data) + '\n');
+
+            return data;
 
         })
         .catch((err) => {

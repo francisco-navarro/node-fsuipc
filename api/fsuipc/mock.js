@@ -14,7 +14,7 @@ function connect() {
 }
 
 function update() {
-  mockData.airspeed = mockData.airspeed > 220 ? 40 : mockData.airspeed+=2;
+  mockData.airspeed = mockData.airspeed > 220 ? 40 : mockData.airspeed+=(2+Math.round(Math.random()*8));
 
   return Promise.resolve(mockData);
 }
