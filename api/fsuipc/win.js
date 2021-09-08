@@ -46,17 +46,20 @@ function update() {
 
             const data = {
                 airspeed: result.airspeed / 128,
-                altitude: result.altitude*3.28084/(65536*65536),
+                altitude: Math.round(result.altitude*3.28084/(65536*65536)),
                 pitch: result.pitch *360/(65536*65536),
                 bank: result.bank *360/(65536*65536),
-                heading: result.heading*360/(65536*65536),
+                heading: Math.round(result.heading*360/(65536*65536)),
                 verticalSpeed: result.verticalSpeed*60*3.28084/256,
                 turnRate: result.turnRate,
                 turnCoordinatorBall: result.turnCoordinatorBall,
                 rpm: result.rpm
             };
 
-            fs.appendFile('sim-output.log', JSON.stringify(data) + '\n');
+            fs.appendFile('sim-output.log', JSON.stringify(data) + '\n', function (err) {
+                if (err) throw err;
+                console.log('Saved!');
+              });
 
             return data;
 
