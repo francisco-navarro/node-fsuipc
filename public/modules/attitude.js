@@ -14,7 +14,7 @@ function attitude() {
 
       d3.select(selector)
         .transition()
-        // .duration(100)
+        .duration(75)
         .attr('transform', `rotate(${bank*4} 775,299),translate(0, ${pitch*4})`);
     }
   }

@@ -1,5 +1,6 @@
 import { airspeed } from './modules/airspeed.js';
 import { attitude } from './modules/attitude.js';
+import { altimeter } from './modules/altimeter.js'
 const host = window.location.host;
 const gauges = [];
 const TIMEOUT = 100;
@@ -8,6 +9,7 @@ const TIMEOUT = 100;
 function main() {
   gauges.push(airspeed());
   gauges.push(attitude());
+  gauges.push(altimeter());
 
   setTimeout(rainbows, TIMEOUT);
 }
